@@ -84,7 +84,7 @@ func (f *queueConsumerFactory) declareTopology(c *amqp.Channel, topic string) er
 
 	err = c.ExchangeDeclare(
 		cfg.ExchangeName,
-		"direct",
+		cfg.ExchangeKind,
 		true,
 		false,
 		false,

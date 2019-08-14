@@ -108,6 +108,10 @@ func TestNewConfig(t *testing.T) {
 			t.Errorf("Expected OpenFaasEx Received %s", config.ExchangeName)
 		}
 
+		if config.ExchangeKind != "direct" {
+			t.Errorf("Expected direct Received %s", config.ExchangeKind)
+		}
+
 		if len(config.Topics) != 1 {
 			t.Errorf("Expected 1 Topic Received %d Topic", len(config.Topics))
 		}
@@ -121,6 +125,7 @@ func TestNewConfig(t *testing.T) {
 		os.Setenv("RMQ_TOPICS", "test")
 		os.Setenv("RMQ_QUEUE", "Queue")
 		os.Setenv("RMQ_EXCHANGE", "Ex")
+		os.Setenv("RMQ_EXCHANGE_KIND", "topic")
 		os.Setenv("RMQ_HOST", "rabbit")
 		os.Setenv("RMQ_PORT", "1337")
 		os.Setenv("RMQ_USER", "username")

@@ -20,6 +20,7 @@ type Controller struct {
 	RabbitSanitizedURL  string
 
 	ExchangeName string
+	ExchangeKind string
 	Topics       []string
 
 	TopicRefreshTime time.Duration
@@ -40,6 +41,7 @@ func NewConfig() (*Controller, error) {
 	}
 
 	exchange := readFromEnv(envRabbitExchange, "OpenFaasEx")
+	exchangeKind := readFromEnv(envRabbitExchangeKind, "direct")
 
 	topics, err := getTopics()
 	if err != nil {
@@ -52,6 +54,7 @@ func NewConfig() (*Controller, error) {
 		RabbitSanitizedURL:  sanitizedURL,
 
 		ExchangeName: exchange,
+		ExchangeKind: exchangeKind,
 		Topics:       topics,
 
 		TopicRefreshTime: getRefreshTime(),
@@ -66,6 +69,7 @@ const envRabbitPort = "RMQ_PORT"
 
 const envRabbitTopics = "RMQ_TOPICS"
 const envRabbitExchange = "RMQ_EXCHANGE"
+const envRabbitExchangeKind = "RMQ_EXCHANGE_KIND"
 
 const envRefreshTime = "TOPIC_MAP_REFRESH_TIME"
 
